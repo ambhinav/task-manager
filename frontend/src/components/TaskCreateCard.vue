@@ -114,9 +114,9 @@ export default {
 						task.status = enums.NEW;
 						task.id = new Date().getTime();
 						await this.createTask(task);
+						this.$emit('closed');
 					} catch (err) {
 						console.log(err);
-						console.log(err.body)
 					} finally {
 						this.loading = false;
 					}

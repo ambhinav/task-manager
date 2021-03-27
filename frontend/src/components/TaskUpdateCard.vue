@@ -82,6 +82,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import TaskModel from '../utils/taskModel';
 import * as data from '../utils/taskStatusEnums'
 const statuses = data.statuses;
 const statusesReverse = data.statusesReverse;
@@ -104,6 +106,7 @@ export default {
 		}
 	},
 	methods: {
+		...mapActions(['updateTask']),
 		getStatuses() {
 			return Object.keys(statusesReverse);
 		},
@@ -114,16 +117,24 @@ export default {
 		submit() {
 			if (this.$refs.form.validate()) {
 				this.loading = true;
-				var updatedTask = {
-					deadline: this.deadline,
-					name: this.name,
-					description: this.description,
-					status: statusesReverse[this.status]
-				}
-				console.log(updatedTask);
-				this.loading = false;
+				const callUpdateTask = async () => {
+					var task = new TaskModel();
+					try {
+						task.name = this.name;
+						task.description = this.description;
+						task.deadline = this.deadline;
+						task.status = statusesReverse[this.status];
+						task.id = this.id;
+						await this.updateTask(task);
+						this.$emit('closed');
+					} catch (err) {
+						console.log(err);
+					} finally {
+						this.loading = false;
+					}
+				};
+				callUpdateTask();		
 			}
-
 		}
 	}
 }

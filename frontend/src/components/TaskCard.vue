@@ -25,7 +25,7 @@
         <v-btn
           text
           color="red"
-          @click="true"
+          @click="onDeleteTask()"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import TaskUpdateCard from './TaskUpdateCard.vue';
 
 
@@ -55,6 +56,19 @@ export default Vue.extend({
   data() {
     return {
       editTaskDialog: false
+    }
+  },
+  methods: {
+    ...mapActions(['deleteTask']),
+    onDeleteTask() {
+      const callDeleteTask = async () => {
+        try {
+          this.deleteTask(this.id);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      callDeleteTask();
     }
   }
 });

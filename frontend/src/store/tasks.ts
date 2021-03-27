@@ -18,6 +18,13 @@ const mutations = {
     },
     setTasks(state: any, task: TaskModel) {
         state.tasks.push(task)
+    },
+    replaceTask(state: any, updatedTask: TaskModel) {
+        state.tasks = state.tasks.filter((task: TaskModel) => task.id != updatedTask.id);
+        state.tasks.push(updatedTask);
+    },
+    removeTask(state: any, id: number) {
+        state.tasks = state.tasks.filter((task: TaskModel) => task.id != id);
     }
 }
 
@@ -46,6 +53,31 @@ const actions = {
             };
             const res = await axios.put(API, data)
             context.commit('addTask', taskModel);
+            return res;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    async updateTask(context: any, taskModel: TaskModel) {
+        try {
+            const data = {
+                status: taskModel.status,
+                deadline: taskModel.deadline,
+                name: taskModel.name,
+                description: taskModel.description,
+                id: taskModel.id
+            };
+            const res = await axios.post(API, data)
+            context.commit('replaceTask', taskModel);
+            return res;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    async deleteTask(context: any, id: number) {
+        try {
+            const res = await axios.delete(API, { data: id });
+            context.commit('removeTask', id);
             return res;
         } catch (err) {
             console.log(err);
