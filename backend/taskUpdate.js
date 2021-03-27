@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
   let responseBody = "";
   let statusCode = 0;
 
-  const { id, name, deadline, description, status } = event;
+  const { id, name, deadline, description, status } = JSON.parse(event.body);
 
   const params = {
     TableName: "tasks",

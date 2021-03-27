@@ -35,7 +35,8 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script>
+import { mapActions } from 'vuex';
 import TaskCreateCard from './components/TaskCreateCard.vue';
 import TaskListContainer from './components/TaskListContainer.vue';
 import * as data from './utils/taskStatusEnums'
@@ -47,7 +48,11 @@ export default {
     TaskListContainer,
     TaskCreateCard
   },
+  created() {
+    this.getAllTasks();
+  },
   methods : {
+    ...mapActions(['getAllTasks']),
     getTaskTypes() {
       return Object.keys(statuses);
     },

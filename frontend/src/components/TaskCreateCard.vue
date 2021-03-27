@@ -73,6 +73,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import TaskModel from '../utils/taskModel';
+import * as data from '../utils/taskStatusEnums'
+const enums = data.statusEnums;
 export default {
 	name: "TaskCreateCard",
 	data() {
@@ -84,6 +88,7 @@ export default {
 		}
 	},
 	methods: {
+		...mapActions(['createTask']),
 		onClose() {
 			this.$refs.form.resetValidation();
 			this.$emit('closed');
@@ -91,16 +96,33 @@ export default {
 		submit() {
 			if (this.$refs.form.validate()) {
 				this.loading = true;
-				var newTask = {
-					deadline: this.deadline,
-					name: this.name,
-					description: this.description,
-					status: "new"
-				}
-				console.log(newTask);
-				this.loading = false;
+				const callCreateTask = async () => {
+					var task = new TaskModel();
+					try {
+						/*
+						var task = {
+							name: this.name,
+							description: this.description,
+							deadline: this.deadline,
+							status: enums.NEW,
+							id: new Date().getTime()
+						}
+						*/
+						task.name = this.name;
+						task.description = this.description;
+						task.deadline = this.deadline;
+						task.status = enums.NEW;
+						task.id = new Date().getTime();
+						await this.createTask(task);
+					} catch (err) {
+						console.log(err);
+						console.log(err.body)
+					} finally {
+						this.loading = false;
+					}
+				};
+				callCreateTask();
 			}
-
 		}
 	}
 }

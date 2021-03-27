@@ -7,10 +7,10 @@
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="2">
-                    <div class="numberCircle">{{ getTasks().length }}</div>
+                    <div class="numberCircle">{{ getTargetTasks().length }}</div>
                 </v-col>
             </v-row>
-            <v-row v-for="task in getTasks()" :key="task.id">
+            <v-row v-for="task in getTargetTasks()" :key="task.id">
                 <v-col cols="12">
                   <task-card :name="task.name" :description="task.description" :deadline="task.deadline" :status="task.status" :id="task.id" />
                 </v-col>
@@ -22,66 +22,42 @@
 <script>
 import TaskCard from './TaskCard.vue'
 import * as data from '../utils/taskStatusEnums'
+import { mapGetters } from 'vuex';
 const statuses = data.statuses;
+const enums = data.statusEnums;
 export default {
   components: { TaskCard },
   props: {
-      status: String
+      status
+  },
+  computed: {
+    ...mapGetters(['getTasks'])
   },
   methods: {
       getStatus() {
           return statuses[this.status];
       },
-      getTasks() {
-          return this.fakeTasks;
+      getTargetTasks() {
+        let result = []
+        switch (this.status) {
+          case enums.NEW:
+            result = this.getTasks.filter(task => task.status == enums.NEW)
+            break;
+
+          case enums.DOING:
+            result = this.getTasks.filter(task => task.status == enums.DOING);
+            break;
+        
+          case enums.DONE:
+            result = this.getTasks.filter(task => task.status == enums.DONE);
+            break;
+
+          default:
+            break;
+        }
+        return result;
       },
   },
-  data: () => ({
-    fakeTasks: [
-      {
-        id: 1,
-        name: "task1",
-        description: "do something 1",
-        deadline: new Date().toISOString(),
-        status: "new"
-      },
-      {
-        id: 2,
-        name: "task2",
-        description: "do something 2",
-        deadline: new Date().toISOString(),
-        status: "new"
-      },
-      {
-        id: 3,
-        name: "task3",
-        description: "do something 3",
-        deadline: new Date().toISOString(),
-        status: "done"
-      },
-      {
-        id: 4,
-        name: "task4",
-        description: "do something 4",
-        deadline: new Date().toISOString(),
-        status: "done"
-      },
-      {
-        id: 5,
-        name: "task5",
-        description: "do something 5",
-        deadline: new Date().toISOString(),
-        status: "new"
-      },
-      {
-        id: 6,
-        name: "task6",
-        description: "do something 6",
-        deadline: new Date().toISOString(),
-        status: "doing"
-      },
-    ],
-  }),
 }
 </script>
 

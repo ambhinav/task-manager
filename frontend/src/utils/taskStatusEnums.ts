@@ -9,3 +9,9 @@ export const statusesReverse = {
     "In Progress": "doing",
     "Done": "done"
 }
+
+export const statusEnums = {
+    "NEW": "new",
+    "DOING": "doing",
+    "DONE": "done"
+}
