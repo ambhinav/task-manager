@@ -6,7 +6,7 @@
                     <div class="text-h4">{{ getStatus() }}</div>
                 </v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="2">
+                <v-col sm="2" cols="4">
                     <div class="numberCircle">{{ getTargetTasks().length }}</div>
                 </v-col>
             </v-row>

@@ -91,6 +91,7 @@ export default {
 		...mapActions(['createTask']),
 		onClose() {
 			this.$refs.form.resetValidation();
+			this.clearForm();
 			this.$emit('closed');
 		},
 		submit() {
@@ -99,15 +100,6 @@ export default {
 				const callCreateTask = async () => {
 					var task = new TaskModel();
 					try {
-						/*
-						var task = {
-							name: this.name,
-							description: this.description,
-							deadline: this.deadline,
-							status: enums.NEW,
-							id: new Date().getTime()
-						}
-						*/
 						task.name = this.name;
 						task.description = this.description;
 						task.deadline = this.deadline;
@@ -118,11 +110,17 @@ export default {
 					} catch (err) {
 						console.log(err);
 					} finally {
-						this.loading = false;
+						this.clearForm();
 					}
 				};
 				callCreateTask();
 			}
+		},
+		clearForm() {
+			this.deadline = new Date().toISOString().substr(0, 10),
+			this.name = '',
+			this.description = '',
+			this.loading = false;
 		}
 	}
 }

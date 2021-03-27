@@ -6,7 +6,7 @@
       dark
     >
       <div class="d-flex align-center">
-        <div class="text-h3">Task Manager</div>
+        <div class="text-h4">Task Manager</div>
       </div>
 
       <v-spacer></v-spacer>
@@ -14,11 +14,11 @@
     <v-main>
       <v-container>
         <v-row class="pt-10">
-          <v-col cols="4">
+          <v-col md="8" cols="12">
             <div class="text-h4">Hi! Welcome to Task Manager.</div>
           </v-col>
           <v-spacer></v-spacer>
-          <v-col cols="4">
+          <v-col md="2" cols="12">
             <v-btn @click="createTaskDialog = true" color="success">Add Task</v-btn>
           </v-col>
         </v-row>
