@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
         ":desc": description,
         ":s": status
     },
-    // name and status are reserved keywords in Dynamo DB
+    // name is a reserved keyword in Dynamo DB
     ExpressionAttributeNames:{
       "#nm": "name",
       "#st": "status"

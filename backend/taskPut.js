@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
     responseBody = JSON.stringify(data);
     statusCode = 200;
   } catch(err) {
-    responseBody = `Unable to put task: ${err} ${id}`;
+    responseBody = `Unable to put task: ${err}`;
     statusCode = 403;
   }
 

@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
   let responseBody = "";
   let statusCode = 0;
 
-  const { id } = event;
+  const id = JSON.parse(event.body);
 
   const params = {
     TableName: "tasks",
@@ -19,9 +19,9 @@ exports.handler = async (event, context) => {
   try {
     const data = await documentClient.delete(params).promise();
     responseBody = JSON.stringify(data);
-    statusCode = 201;
+    statusCode = 200;
   } catch(err) {
-    responseBody = `Unable to put task: ${err}`;
+    responseBody = `Unable to delete task: ${err} ${id}`;
     statusCode = 403;
   }
 
