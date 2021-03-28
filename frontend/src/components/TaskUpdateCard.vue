@@ -126,9 +126,10 @@ export default {
 						task.status = statusesReverse[this.status];
 						task.id = this.id;
 						await this.updateTask(task);
+						this.$toast.success("Task updated!");
 						this.$emit('closed');
 					} catch (err) {
-						console.log(err);
+						this.$toast.error(err);
 					} finally {
 						this.loading = false;
 					}

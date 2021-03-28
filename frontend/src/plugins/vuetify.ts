@@ -1,7 +1,18 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
+import Vuetify, { VSnackbar, VBtn, VIcon } from 'vuetify/lib'
+import VuetifyToast from 'vuetify-toast-snackbar'
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
+Vue.use(Vuetify, {
+    components: {
+        VSnackbar,
+        VBtn,
+        VIcon
+    }
 });
+
+const vuetifyObj = new Vuetify({
+});
+
+Vue.use(VuetifyToast, { $vuetify: vuetifyObj.framework });
+
+export default vuetifyObj;

@@ -106,9 +106,10 @@ export default {
 						task.status = enums.NEW;
 						task.id = new Date().getTime();
 						await this.createTask(task);
+						this.$toast.success("Task created!");
 						this.$emit('closed');
 					} catch (err) {
-						console.log(err);
+						this.$toast.error(err);
 					} finally {
 						this.clearForm();
 					}

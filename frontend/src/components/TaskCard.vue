@@ -42,7 +42,6 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 import TaskUpdateCard from './TaskUpdateCard.vue';
 
-
 export default Vue.extend({
   components: { TaskUpdateCard },
   name: 'TaskCard',
@@ -63,9 +62,10 @@ export default Vue.extend({
     onDeleteTask() {
       const callDeleteTask = async () => {
         try {
-          this.deleteTask(this.id);
+          await this.deleteTask(this.id);
+          this.$toast.success("Task deleted");
         } catch (err) {
-          console.log(err);
+          this.$toast.error(err);
         }
       }
       callDeleteTask();
