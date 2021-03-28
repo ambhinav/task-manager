@@ -54,7 +54,7 @@
 						sm="12"
 						md="12"
 					>
-						<v-date-picker :rules="[v => !!v || 'Please enter a deadline for the task']" v-model="deadline"></v-date-picker>
+						<v-date-picker width="250" :rules="[v => !!v || 'Please enter a deadline for the task']" v-model="deadline"></v-date-picker>
 					</v-col>
 				</v-row>
 			</v-container>

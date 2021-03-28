@@ -42,6 +42,7 @@
 						md="12"
 					>
 						<v-date-picker
+							width="250"
 							:rules="[v => !!v || 'Please enter a deadline for the task']"
 							v-model="deadline"
 							:min="(new Date()).toISOString()"
