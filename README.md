@@ -2,13 +2,14 @@
 
 ## Instructions to Run the App
 
-The website is hosted on Heroku. Please Refer to the repo description for the link.
-The server is a AWS lambda application.
+The website is hosted on Heroku [here](https://task-manager-728.herokuapp.com/).
 
-Create a task by pressing the "add task" button. Update tasks' statuses ("new", "in progress" and done), deadlines, names etc by pressing the pencil icon. Delete by pressing the garbage icon.
+CRUD functionalities are supported. Create a task by pressing the "add task" button. Update tasks' statuses ("new", "in progress" and "done"), deadlines, names etc by pressing the pencil icon. Delete by pressing the garbage icon.
 
 ## Stack
-The app has a serverless-architecture.
+The app has a serverless-architecture with a RESTful API - AWS API Gateway.
+
+The web server and backend/database are seperate applications.
 ### Frontend
 - Vue, Vuex
 - Typescript.
